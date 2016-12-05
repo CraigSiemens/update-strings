@@ -1,0 +1,29 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5441F5A06973B7C5DCFB2F409C92105EFA8EF303" : 9223372036854775807,
+    "A20FA87EA7235D854C6BC268B0F7233F18A16430" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "512C84F5-193E-4FCD-9828-36578569153C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5441F5A06973B7C5DCFB2F409C92105EFA8EF303" : "spool\/Packages\/Commander-0.6.0\/",
+    "A20FA87EA7235D854C6BC268B0F7233F18A16430" : "spool\/Packages\/Runner-0.1.0\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "spool",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "spool.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:kylef\/Commander.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5441F5A06973B7C5DCFB2F409C92105EFA8EF303"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/oarrabi\/Runner.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A20FA87EA7235D854C6BC268B0F7233F18A16430"
+    }
+  ]
+}

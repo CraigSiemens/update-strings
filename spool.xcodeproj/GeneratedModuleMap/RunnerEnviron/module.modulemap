@@ -1,0 +1,5 @@
+module RunnerEnviron {
+    umbrella "/Users/craig/Dropbox/spool/Packages/Runner-0.1.0/Sources/RunnerEnviron/include"
+    link "RunnerEnviron"
+    export *
+}

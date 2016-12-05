@@ -8,7 +8,7 @@
 
 import Foundation
 import Commander
-import Swiftline
+import Runner
 
 let settings = { (settings: RunSettings) in
 //    settings.echo = [.Command, .Stdout, .Stderr]
@@ -19,10 +19,10 @@ let generate = command(
     Option("output", ".", flag: "o", description: "Output file")
 ) { sourceFolder, output in
     
-    let findResults = run("find", args: [sourceFolder, "-name", "*.m", "-o", "-name", "*.swift"], settings: settings)
+    let findResults = run("find -name *.m -o -name *.swift", settings: settings)
     let files = findResults.stdout.components(separatedBy: "\n")
     
-    _ = run("genstrings", args: ["-o", "/tmp"] + files, settings: settings)
+    _ = run("genstrings -o /tmp \(files.joined(separator: " "))", settings: settings)
     
     let tempFileURL = URL(fileURLWithPath: "/tmp/Localizable.strings")
     let outputFileURL = URL(fileURLWithPath: output).appendingPathComponent("Localizable.strings")
