@@ -1,0 +1,25 @@
+PODS:
+  - Commander (0.5.0)
+  - Swiftline (0.4.0)
+
+DEPENDENCIES:
+  - Commander
+  - Swiftline (from `git@github.com:oarrabi/Swiftline.git`, branch `master`)
+
+EXTERNAL SOURCES:
+  Swiftline:
+    :branch: master
+    :git: git@github.com:oarrabi/Swiftline.git
+
+CHECKOUT OPTIONS:
+  Swiftline:
+    :commit: 4f84dee14e47a69bfbea71a6dbba0ddc9fd9b66b
+    :git: git@github.com:oarrabi/Swiftline.git
+
+SPEC CHECKSUMS:
+  Commander: 632982cd24e742e08e530859b33a246c90062201
+  Swiftline: 001fae5ccb4000ad45b73c1e90969b50008ee2dd
+
+PODFILE CHECKSUM: a8a200550f44d4e9ea0c7db6b08e5fd636c4c673
+
+COCOAPODS: 1.1.1
