@@ -6,25 +6,21 @@ struct StringsFile {
 
 extension StringsFile {
     
-    init(url: URL?) {
+    init(url: URL?) throws {
         guard let url = url,
-            let content = try? String(contentsOf: url, encoding: String.Encoding.utf16) else {
+            let content = try? String(contentsOf: url) else {
                 entries = [:]
                 return
         }
         
-//        let searchableContent = content as NSString
-        let regex = try! NSRegularExpression(pattern: "(/\\*.*?\\*/)?\n\"(.*?)\" = \"(.*?)\";", options: [.dotMatchesLineSeparators])
-        let results = regex.matches(in: content, options: [], range: NSMakeRange(0, content.characters.count))
-        
-//        let comment: String = content.substringWithRange(result.rangeAtIndex(1))
-//        let key: String = content.substringWithRange(result.rangeAtIndex(2))
-//        let value: String = content.substringWithRange(result.rangeAtIndex(3))
-        
+        let regex = try NSRegularExpression(pattern: "(/\\*.*?\\*/)?\n\"(.*?)\" = \"(.*?)\";",
+                                            options: [.dotMatchesLineSeparators])
+        let results = regex.matches(in: content, options: [], range: NSMakeRange(0, content.count))
+                
         entries = results.map { result -> StringsEntry in
-            let comment = content.substringWithRange(result.rangeAt(1))
-            let key = content.substringWithRange(result.rangeAt(2))
-            let value = content.substringWithRange(result.rangeAt(3))
+            let comment = content.substringWithRange(result.range(at: 1))
+            let key = content.substringWithRange(result.range(at: 2))
+            let value = content.substringWithRange(result.range(at: 3))
             return StringsEntry(comment: comment, key: key, value: value)
             }
             .reduce([:]) { dict, entry in
@@ -77,10 +73,8 @@ extension StringsFile: CustomStringConvertible {
 
 extension String {
     func substringWithRange(_ range: NSRange) -> String {
-//        guard range.location != NSNotFound else { return "" }
-        
-        let start = characters.index(startIndex, offsetBy: range.location)
+        let start = index(startIndex, offsetBy: range.location)
         let end = index(start, offsetBy: range.length)
-        return substring(with: start..<end)
+        return String(self[start..<end])
     }
 }
