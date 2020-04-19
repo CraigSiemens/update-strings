@@ -6,11 +6,15 @@ let package = Package(
     name: "update-strings",
     dependencies: [
         .package(url: "https://github.com/kareman/SwiftShell.git", from: "4.0.0"),
-        .package(url: "https://github.com/kylef/Commander.git", from: "0.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "0.0.1"),
     ],
     targets: [
         .target(
             name: "update-strings",
-            dependencies: ["SwiftShell", "Commander"]),
+            dependencies: [
+                "SwiftShell",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ]
+        ),
     ]
 )
