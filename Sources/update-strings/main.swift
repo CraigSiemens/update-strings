@@ -32,7 +32,7 @@ let generate = command(
     print("  Temp contains \(tempFile.entries.count)")
 
     let outputFile = try StringsFile(url: outputFileURL)
-    print("  Existing contains \(tempFile.entries.count)")
+    print("  Existing contains \(outputFile.entries.count)")
 
     print("Merging Files")
     let mergedFile = StringsFile(oldFile: outputFile, newFile: tempFile)
