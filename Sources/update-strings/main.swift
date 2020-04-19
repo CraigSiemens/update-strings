@@ -56,3 +56,5 @@ struct UpdateStrings: ParsableCommand {
         try FileManager.default.removeItem(at: tempFileURL)
     }
 }
+
+UpdateStrings.main()
