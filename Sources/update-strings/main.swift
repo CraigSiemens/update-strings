@@ -16,7 +16,7 @@ struct UpdateStrings: ParsableCommand {
 
     @Option(name: [.short, .customLong("output")],
             help: ArgumentHelp("The destination folder for the strings file.",
-                               discussion: "If a strings file already exists, it will be updated to contain newly added strings. If it doesnt exist, a strings file will be created."))
+                               discussion: "If a strings file already exists, it will be updated to contain newly added strings. If it doesn't exist, a strings file will be created."))
     var outputFolder: String
     
     func run() throws {
@@ -30,7 +30,7 @@ struct UpdateStrings: ParsableCommand {
         
         print("  Found \(files.count)")
         
-        print("Generating String")
+        print("Generating Strings")
         try runAndPrint("genstrings", "-o", "/tmp", files)
         
         let tempFileURL = URL(fileURLWithPath: "/tmp/Localizable.strings")

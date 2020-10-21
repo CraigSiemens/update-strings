@@ -6,9 +6,7 @@ struct StringsEntry {
     let value: String
     
     var isDefault: Bool {
-        get {
-            return key == value.replacingOccurrences(of: "[0-9]\\$+", with: "", options: .regularExpression)
-        }
+        key == value.replacingOccurrences(of: "[0-9]\\$+", with: "", options: .regularExpression)
     }
 }
 
@@ -28,8 +26,9 @@ extension StringsEntry {
 
 extension StringsEntry: CustomStringConvertible {
     var description: String {
-        get {
-            return "\(comment)\n\"\(key)\" = \"\(value)\";\n"
-        }
+        """
+        \(comment)
+        \(key) = \(value);
+        """
     }
 }
