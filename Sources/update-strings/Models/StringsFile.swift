@@ -72,6 +72,7 @@ extension StringsFile: CustomStringConvertible {
             
             return parts.filter { !$0.isEmpty }
                 .joined(separator: "\n\n")
+                + "\n"
         }
     }
 }
