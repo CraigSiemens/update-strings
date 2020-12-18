@@ -8,6 +8,7 @@
 import ArgumentParser
 import Foundation
 import SwiftShell
+import UpdateStringsModels
 
 struct UpdateStrings: ParsableCommand {
     @Option(name: [.short, .customLong("source")],
