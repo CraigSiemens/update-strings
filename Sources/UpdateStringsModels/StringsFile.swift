@@ -113,6 +113,21 @@ private extension Scanner {
     }
     
     func scanKey() -> String? {
+        let startingCharactersToBeSkipped = charactersToBeSkipped
+        charactersToBeSkipped = nil
+        
+        _ = scanCharacters(from: .whitespacesAndNewlines)
+        
+        charactersToBeSkipped = startingCharactersToBeSkipped
+        
+        if string[currentIndex] == "\"" {
+            return scanQuotedKey()
+        } else {
+            return scanUnquotedKey()
+        }
+    }
+    
+    private func scanQuotedKey() -> String? {
         guard scanString(.quote) != nil else {
             return nil
         }
@@ -135,6 +150,11 @@ private extension Scanner {
         
         _ = scanString(.quote)
         return key
+    }
+    
+    private func scanUnquotedKey() -> String? {
+        scanUpToString(.equals)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     /// Loosely based on

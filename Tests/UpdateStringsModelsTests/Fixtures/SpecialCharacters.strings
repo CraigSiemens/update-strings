@@ -1,15 +1,5 @@
 /* comment1" */
 "key1\"" = "value1\"";
 
-/* comment2
-   Second Line */
-"key2\nasdf" = "value2\nasdf";
-
-/* comment3
-Second Line */
-"key3
-asdf" = "value3
-asdf";
-
-/* comment4 "a" = "b"; */
-"key4 \"a\" = \"b\";" = "value4 \"a\" = \"b\";";
+/* comment2 "a" = "b"; */
+"key2 \"a\" = \"b\";" = "value2 \"a\" = \"b\";";
