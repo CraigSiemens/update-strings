@@ -7,8 +7,12 @@ A wrapper around `genstrings` that will look through the source code in a projec
 make install
 ```
 
-Example Usage
+Finds all the uses of `NSLocalizedString(...)` in you sources and updated your existing strings files to have have to new strings or remove old strings.
 ```
 update-strings -s path/to/source -o path/to/en.lproj
+```
 
+Finds all the strings files in the directoy and sorts their contents by key.
+```
+update-strings sort Modules/
 ```
