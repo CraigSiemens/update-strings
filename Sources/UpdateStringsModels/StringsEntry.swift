@@ -1,7 +1,7 @@
 import Foundation
 
-struct StringsEntry {
-    let comment: String
+public struct StringsEntry {
+    var comment: String?
     let key: String
     let value: String
     
@@ -25,10 +25,21 @@ extension StringsEntry {
 }
 
 extension StringsEntry: CustomStringConvertible {
-    var description: String {
-        """
-        \(comment)
-        \(key) = \(value);
-        """
+    public var description: String {
+        var string = ""
+        
+        if let comment = comment {
+            string.append("/* \(comment) */\n")
+        }
+        
+        string.append("\"\(key.escapingQuotes())\" = \"\(value.escapingQuotes())\";")
+        
+        return string
+    }
+}
+
+private extension String {
+    func escapingQuotes() -> String {
+        replacingOccurrences(of: "\"", with: "\\\"")
     }
 }

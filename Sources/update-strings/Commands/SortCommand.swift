@@ -1,6 +1,7 @@
 import ArgumentParser
 import Foundation
 import SwiftShell
+import UpdateStringsModels
 
 struct SortCommand: ParsableCommand {
     static var configuration: CommandConfiguration = .init(
