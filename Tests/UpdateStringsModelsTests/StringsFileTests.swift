@@ -55,7 +55,7 @@ final class StringsFileTests: XCTestCase {
         
         do {
             let file = try StringsFile(url: url)
-            XCTAssertEqual(file.entries.count, 2)
+            XCTAssertEqual(file.entries.count, 3)
             
             let key1 = "key1\""
             XCTAssertEqual(file.entries[key1]?.comment, "comment1\"")
@@ -66,6 +66,11 @@ final class StringsFileTests: XCTestCase {
             XCTAssertEqual(file.entries[key2]?.comment, "comment2 \"a\" = \"b\";")
             XCTAssertEqual(file.entries[key2]?.key, key2)
             XCTAssertEqual(file.entries[key2]?.value, "value2 \"a\" = \"b\";")
+            
+            let key3 = "key3 ; asdf"
+            XCTAssertEqual(file.entries[key3]?.comment, "comment3 ; asdf")
+            XCTAssertEqual(file.entries[key3]?.key, key3)
+            XCTAssertEqual(file.entries[key3]?.value, "value3 ; asdf")
         } catch {
             XCTFail("\(error)")
         }

@@ -3,3 +3,6 @@
 
 /* comment2 "a" = "b"; */
 "key2 \"a\" = \"b\";" = "value2 \"a\" = \"b\";";
+
+/* comment3 ; asdf */
+"key3 ; asdf" = "value3 ; asdf";
