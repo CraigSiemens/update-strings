@@ -8,6 +8,9 @@ struct SortCommand: ParsableCommand {
         commandName: "sort",
         abstract: "Sorts the contents of strings files in a given folder"
     )
+
+    @Option(name: .shortAndLong, help: "Option to enable validation mode. It throws an error if a file is not sorted.")
+    var validate = false
     
     @Argument(help: ArgumentHelp("The folder to search for strings files.", discussion: ""))
     var folder: String
@@ -32,10 +35,20 @@ struct SortCommand: ParsableCommand {
                 .replacingOccurrences(of: currentDirectoryURL.path, with: "")
                 .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
             
-            print("Sorting \(relativePath)")
+            print("\(validate ? "Validating" : "Sorting") \(relativePath)")
+            
+            let currentStrings = try String(contentsOf: stringsFileURL)
             
             let stringsFile = try StringsFile(url: stringsFileURL)
-            try stringsFile.description.write(to: stringsFileURL, atomically: true, encoding: .utf8)
+            let newStrings = stringsFile.description
+            
+            if validate {
+                if currentStrings != newStrings {
+                    throw ValidationError("\(relativePath) is not sorted.")
+                }
+            } else {
+                try stringsFile.description.write(to: stringsFileURL, atomically: true, encoding: .utf8)
+            }
         }
     }
 }
