@@ -44,7 +44,7 @@ struct SortCommand: ParsableCommand {
             
             guard currentStrings != newStrings else { continue }
             
-            print("\(dryRun ? "Validating" : "Sorting") \(relativePath)")
+            print("Sorting \(relativePath)")
             
             if dryRun {
                 unsortedStringPaths.append(relativePath)
@@ -54,11 +54,10 @@ struct SortCommand: ParsableCommand {
         }
         
         if dryRun, !unsortedStringPaths.isEmpty {
-            throw ValidationError(
-                unsortedStringPaths
-                    .map { "\($0) is not sorted." }
-                    .joined(separator: "\n")
-            )
+            print("The following files need to be sorted.")
+            unsortedStringPaths.forEach { print($0) }
+            
+            throw ExitCode.failure
         }
     }
 }
