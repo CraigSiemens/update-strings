@@ -8,6 +8,9 @@ struct SortCommand: ParsableCommand {
         commandName: "sort",
         abstract: "Sorts the contents of strings files in a given folder"
     )
+
+    @Option(name: .long, help: "Option to enable validation mode. It throws an error if a file is not sorted.")
+    var dryRun = false
     
     @Argument(help: ArgumentHelp("The folder to search for strings files.", discussion: ""))
     var folder: String
@@ -27,15 +30,34 @@ struct SortCommand: ParsableCommand {
         
         print("  Found \(stringsFileURLs.count)")
         
+        var unsortedStringPaths: [String] = []
+        
         for stringsFileURL in stringsFileURLs {
             let relativePath = stringsFileURL.path
                 .replacingOccurrences(of: currentDirectoryURL.path, with: "")
                 .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
             
-            print("Sorting \(relativePath)")
+            let currentStrings = try String(contentsOf: stringsFileURL)
             
             let stringsFile = try StringsFile(url: stringsFileURL)
-            try stringsFile.description.write(to: stringsFileURL, atomically: true, encoding: .utf8)
+            let newStrings = stringsFile.description
+            
+            guard currentStrings != newStrings else { continue }
+            
+            print("Sorting \(relativePath)")
+            
+            if dryRun {
+                unsortedStringPaths.append(relativePath)
+            } else {
+                try stringsFile.description.write(to: stringsFileURL, atomically: true, encoding: .utf8)
+            }
+        }
+        
+        if dryRun, !unsortedStringPaths.isEmpty {
+            print("The following files need to be sorted.")
+            unsortedStringPaths.forEach { print($0) }
+            
+            throw ExitCode.failure
         }
     }
 }
