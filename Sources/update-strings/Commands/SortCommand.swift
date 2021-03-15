@@ -9,7 +9,7 @@ struct SortCommand: ParsableCommand {
         abstract: "Sorts the contents of strings files in a given folder"
     )
 
-    @Option(name: .long, help: "Option to enable validation mode. It throws an error if a file is not sorted.")
+    @Flag(help: "Run without making any changes to files. Exits with a non-zero error code if any files need to be sorted.")
     var dryRun = false
     
     @Argument(help: ArgumentHelp("The folder to search for strings files.", discussion: ""))
