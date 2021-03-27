@@ -12,6 +12,16 @@ struct UpdateStrings: ParsableCommand {
         ],
         defaultSubcommand: UpdateCommand.self
     )
+    
+    @OptionGroup var options: UpdateStrings.Options
+    
+    struct Options: ParsableArguments {
+        @Flag(
+            name: [.short, .long],
+            help: "Run without additional logging."
+        )
+        var quiet = false
+    }
 }
 
 UpdateStrings.main()

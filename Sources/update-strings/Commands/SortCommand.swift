@@ -8,18 +8,26 @@ struct SortCommand: ParsableCommand {
         commandName: "sort",
         abstract: "Sorts the contents of strings files in a given folder"
     )
-
-    @Flag(help: "Run without making any changes to files. Exits with a non-zero error code if any files need to be sorted.")
+    
+    @Flag(
+        help: "Run without making any changes to files. Exits with a non-zero error code if any files need to be sorted."
+    )
     var dryRun = false
     
-    @Argument(help: ArgumentHelp("The folder to search for strings files.", discussion: ""))
+    @Argument(
+        help: "The folder to search for strings files."
+    )
     var folder: String
     
+    @OptionGroup var options: UpdateStrings.Options
+    
     func run() throws {
+        let log = Logger(options: options)
+        
         let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
             .appendingPathComponent(folder)
         
-        print("Finding Files")
+        log.info("Finding Files")
         
         let stringsFileURLs = SwiftShell
             .run("find", folder, "-name", "*.strings")
@@ -28,7 +36,7 @@ struct SortCommand: ParsableCommand {
             .filter { !$0.isEmpty }
             .map { URL(fileURLWithPath: $0) }
         
-        print("  Found \(stringsFileURLs.count)")
+        log.info("  Found \(stringsFileURLs.count)")
         
         var unsortedStringPaths: [String] = []
         
@@ -44,7 +52,7 @@ struct SortCommand: ParsableCommand {
             
             guard currentStrings != newStrings else { continue }
             
-            print("Sorting \(relativePath)")
+            log.info("Sorting \(relativePath)")
             
             if dryRun {
                 unsortedStringPaths.append(relativePath)
@@ -54,8 +62,8 @@ struct SortCommand: ParsableCommand {
         }
         
         if dryRun, !unsortedStringPaths.isEmpty {
-            print("The following files need to be sorted.")
-            unsortedStringPaths.forEach { print($0) }
+            log.warning("The following files need to be sorted.")
+            unsortedStringPaths.forEach { log.warning($0) }
             
             throw ExitCode.failure
         }
