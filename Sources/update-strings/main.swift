@@ -6,6 +6,7 @@ import UpdateStringsModels
 struct UpdateStrings: ParsableCommand {
     static var configuration = CommandConfiguration(
         abstract: "Tools for working with strings files.",
+        version: version,
         subcommands: [
             UpdateCommand.self,
             SortCommand.self
