@@ -1,11 +1,10 @@
 NAME=update-strings
-SWIFT_BUILD_FLAGS=--configuration release
-UPDATE_STRINGS_EXECUTABLE=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/$(NAME)
+SWIFT_BUILD_FLAGS=--configuration release --disable-sandbox
+BINARY=$(shell swift build $(SWIFT_BUILD_FLAGS) --show-bin-path)/$(NAME)
+COMPLETIONS_DIR=.build/completions
 MAIN_BRANCH=main
 
-BINARIES_FOLDER=/usr/local/bin
-
-.PHONY: all clean build install uninstall new-version
+.PHONY: all clean build completions push-version
 
 all: build
 
@@ -15,12 +14,11 @@ clean:
 build:
 	swift build $(SWIFT_BUILD_FLAGS)
 
-install: build
-	install -d "$(BINARIES_FOLDER)"
-	install "$(UPDATE_STRINGS_EXECUTABLE)" "$(BINARIES_FOLDER)"
-
-uninstall:
-	rm -f "$(BINARIES_FOLDER)/$(NAME)"
+completions: build
+	mkdir -p "$(COMPLETIONS_DIR)"
+	"$(BINARY)" --generate-completion-script bash > "$(COMPLETIONS_DIR)/bash"
+	"$(BINARY)" --generate-completion-script zsh > "$(COMPLETIONS_DIR)/zsh"
+	"$(BINARY)" --generate-completion-script fish > "$(COMPLETIONS_DIR)/fish"
 
 push-version:
 ifneq ($(strip $(shell git status --untracked-files=no --porcelain 2>/dev/null)),)
