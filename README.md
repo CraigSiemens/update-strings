@@ -4,7 +4,7 @@ A wrapper around `genstrings` that will look through the source code in a projec
 
 ## Install
 ```
-make install
+brew install CraigSiemens/tap/update-strings
 ```
 
 Finds all the uses of `NSLocalizedString(...)` in you sources and updated your existing strings files to have have to new strings or remove old strings.
