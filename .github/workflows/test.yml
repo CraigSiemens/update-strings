@@ -1,0 +1,12 @@
+name: test
+
+on:
+  pull_request:
+jobs:
+  test:
+    runs-on: macos-12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test
+        run: swift test
