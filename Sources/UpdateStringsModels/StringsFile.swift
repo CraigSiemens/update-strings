@@ -14,6 +14,11 @@ extension StringsFile {
     }
     
     init(data: Data) throws {
+        guard !data.isEmpty else {
+            self.entries = [:]
+            return
+        }
+        
         let decoder = PropertyListDecoder()
         let entries = try decoder.decode([String: String].self, from: data)
             .map { (key, value) -> (String, StringsEntry) in
@@ -44,6 +49,8 @@ extension StringsFile {
 extension StringsFile: CustomStringConvertible {
     public var description: String {
         get {
+            guard !entries.isEmpty else { return "" }
+            
             let sortedEntries = entries.values.sorted { $0.key < $1.key }
             
             let defaultEntries = sortedEntries.filter { $0.isDefault }

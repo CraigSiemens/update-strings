@@ -1,6 +1,5 @@
 import ArgumentParser
 import Foundation
-import SwiftShell
 import UpdateStringsModels
 
 struct UpdateCommand: ParsableCommand {
@@ -31,16 +30,15 @@ struct UpdateCommand: ParsableCommand {
         
         log.info("Finding Files")
         
-        let files = SwiftShell
-            .run("find", sourceFolder, "-name", "*.m", "-o", "-name", "*.swift")
-            .stdout
+        let files = try Process
+            .execute("find", arguments: [sourceFolder, "-name", "*.m", "-o", "-name", "*.swift"])
             .components(separatedBy: "\n")
             .filter { !$0.isEmpty }
         
         log.info("  Found \(files.count)")
         
         log.info("Generating Strings")
-        try runAndPrint("genstrings", "-o", "/tmp", files)
+        try Process.execute("/usr/bin/genstrings", arguments: ["-o", "/tmp"] + files)
         
         let tempFileURL = URL(fileURLWithPath: "/tmp/Localizable.strings")
         let outputFileURL = URL(fileURLWithPath: outputFolder)

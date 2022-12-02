@@ -12,7 +12,6 @@ let package = Package(
         .library(name: "UpdateStringsModels", targets: ["UpdateStringsModels"])
     ],
     dependencies: [
-        .package(url: "https://github.com/kareman/SwiftShell.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
     ],
     targets: [
@@ -20,7 +19,6 @@ let package = Package(
             name: "update-strings",
             dependencies: [
                 "UpdateStringsModels",
-                "SwiftShell",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ]
         ),

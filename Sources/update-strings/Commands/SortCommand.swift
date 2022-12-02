@@ -1,6 +1,5 @@
 import ArgumentParser
 import Foundation
-import SwiftShell
 import UpdateStringsModels
 
 struct SortCommand: ParsableCommand {
@@ -29,9 +28,8 @@ struct SortCommand: ParsableCommand {
         
         log.info("Finding Files")
         
-        let stringsFileURLs = SwiftShell
-            .run("find", folder, "-name", "*.strings")
-            .stdout
+        let stringsFileURLs = try Process
+            .execute("/usr/bin/find", arguments: [folder, "-name", "*.strings"])
             .components(separatedBy: "\n")
             .filter { !$0.isEmpty }
             .map { URL(fileURLWithPath: $0) }
